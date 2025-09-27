@@ -62,7 +62,7 @@ export default function InstantJobRadarPage() {
     const workerNames = [
       'Raj Kumar', 'Priya Singh', 'Amit Sharma', 'Sunita Devi', 'Ramesh Yadav',
       'Kavita Patel', 'Suresh Gupta', 'Meera Joshi', 'Vikram Singh', 'Anita Kumari',
-      'Deepak Verma', 'Pooja Sharma', 'Ravi Kumar', 'Sita Devi', 'Manoj Tiwari'
+      'Deepak Verma', 'Pooja Sharma', 'Ravi Kumar', 'Sita Devi', 'Manoj Tiwari','Aasha Devi'
     ]
     
     for (let i = 0; i < workerCount; i++) {
