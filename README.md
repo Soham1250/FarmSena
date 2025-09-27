@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AgroSena - Agricultural Job Matching Platform
 
 A modern, responsive website built with Next.js 14, TypeScript, and Tailwind CSS for AgroSena, a platform that connects agricultural workers with land owners.
@@ -148,3 +149,6 @@ For support and questions, contact the development team.
 ---
 
 Built with ❤️ for modern agriculture
+=======
+# FarmSena
+>>>>>>> 64f6389e4ebc94c4c42cc5be412de8fa4e978561
