@@ -139,7 +139,7 @@ export default function JobDetailsPage() {
     } else {
       router.push('/dashboard/worker')
     }
-  }, [router, params.id])
+  }, [router, params.id, jobsData])
 
   const handleAcceptJob = () => {
     setShowTermsModal(true)
@@ -337,7 +337,7 @@ export default function JobDetailsPage() {
                         <span className="text-gray-500 font-medium text-sm">{prevJob.rating}</span>
                       </div>
                     </div>
-                    <p className="text-gray-700 text-sm italic">"{prevJob.workerFeedback}"</p>
+                    <p className="text-gray-700 text-sm italic">&quot;{prevJob.workerFeedback}&quot;</p>
                   </div>
                 ))}
               </div>

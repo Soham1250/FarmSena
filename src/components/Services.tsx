@@ -47,7 +47,7 @@ const Services = () => {
             How AgroSena Works
           </h2>
           <p className="text-lg text-gray-600">
-            Whether you're looking for work or need to hire workers, 
+            Whether you&apos;re looking for work or need to hire workers, 
             AgroSena provides the tools and platform to connect efficiently.
           </p>
         </div>

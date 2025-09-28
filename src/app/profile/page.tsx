@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Camera, MapPin, User, Save, Loader } from 'lucide-react'
 
 export default function ProfilePage() {
@@ -98,14 +99,14 @@ export default function ProfilePage() {
             location: mockLocation
           })
         } catch (error) {
-          console.error('Error getting location:', error)
+          // console.error('Error getting location:', error)
           alert('Error getting location details')
         } finally {
           setLocationLoading(false)
         }
       },
       (error) => {
-        console.error('Error getting location:', error)
+        // console.error('Error getting location:', error)
         alert('Error accessing location. Please enable location services.')
         setLocationLoading(false)
       }
@@ -171,9 +172,11 @@ export default function ProfilePage() {
                 onClick={handleProfilePictureClick}
               >
                 {profilePicture ? (
-                  <img 
+                  <Image 
                     src={profilePicture} 
                     alt="Profile" 
+                    width={128}
+                    height={128}
                     className="w-32 h-32 rounded-full object-cover"
                   />
                 ) : (

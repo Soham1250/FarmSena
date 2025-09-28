@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Search, Menu, User, LogOut, MapPin, Clock, Bell, Zap, X } from 'lucide-react'
@@ -13,6 +13,57 @@ export default function WorkerDashboard() {
   const [showNotifications, setShowNotifications] = useState(false)
   const [instantJobs, setInstantJobs] = useState<any[]>([])
   const [allJobs, setAllJobs] = useState<any[]>([])
+
+  const combineAllJobs = useCallback((instantJobsList: any[]) => {
+    // Sample regular job data
+    const regularJobs = [
+      {
+        id: 1001,
+        title: 'Crop Harvesting',
+        location: 'Green Valley Farm',
+        duration: '3 days',
+        pay: '₹150/day',
+        description: 'Help with seasonal corn harvest. Experience with farm equipment preferred.',
+        postedBy: 'John Smith',
+        distance: '2.5 km away',
+        isInstant: false
+      },
+      {
+        id: 1002,
+        title: 'Irrigation Setup',
+        location: 'Sunny Acres',
+        duration: '2 days',
+        pay: '₹120/day',
+        description: 'Install new irrigation system for vegetable crops.',
+        postedBy: 'Sarah Johnson',
+        distance: '4.1 km away',
+        isInstant: false
+      },
+      {
+        id: 1003,
+        title: 'Soil Preparation',
+        location: 'Riverside Farm',
+        duration: '1 week',
+        pay: '₹100/day',
+        description: 'Prepare soil for next season planting. Tractor operation experience required.',
+        postedBy: 'Mike Wilson',
+        distance: '1.8 km away',
+        isInstant: false
+      }
+    ]
+    // Combine instant jobs and regular jobs, with instant jobs first
+    const combined = [...instantJobsList, ...regularJobs]
+    setAllJobs(combined)
+  }, [])
+
+  const loadInstantJobs = useCallback(() => {
+    // Load instant jobs from localStorage
+    const storedInstantJobs = JSON.parse(localStorage.getItem('instantJobs') || '[]')
+    setInstantJobs(storedInstantJobs)
+    
+    // Combine with regular jobs
+    combineAllJobs(storedInstantJobs)
+  }, [combineAllJobs])
 
   useEffect(() => {
     // Check if user is logged in
@@ -59,7 +110,7 @@ export default function WorkerDashboard() {
     const interval = setInterval(checkForInstantJobs, 30000)
     
     return () => clearInterval(interval)
-  }, [router])
+  }, [router, loadInstantJobs])
 
   const handleLogout = () => {
     localStorage.removeItem('user')
@@ -79,56 +130,6 @@ export default function WorkerDashboard() {
     setInstantNotifications(prev => prev.filter(job => job.id !== jobId))
   }
 
-  const loadInstantJobs = () => {
-    // Load instant jobs from localStorage
-    const storedInstantJobs = JSON.parse(localStorage.getItem('instantJobs') || '[]')
-    setInstantJobs(storedInstantJobs)
-    
-    // Combine with regular jobs
-    combineAllJobs(storedInstantJobs)
-  }
-
-  const combineAllJobs = (instantJobsList: any[]) => {
-    // Sample regular job data
-    const regularJobs = [
-      {
-        id: 1001,
-        title: 'Crop Harvesting',
-        location: 'Green Valley Farm',
-        duration: '3 days',
-        pay: '₹150/day',
-        description: 'Help with seasonal corn harvest. Experience with farm equipment preferred.',
-        postedBy: 'John Smith',
-        distance: '2.5 km away',
-        isInstant: false
-      },
-      {
-        id: 1002,
-        title: 'Irrigation Setup',
-        location: 'Sunny Acres',
-        duration: '2 days',
-        pay: '₹120/day',
-        description: 'Install new irrigation system for vegetable crops.',
-        postedBy: 'Sarah Johnson',
-        distance: '4.1 km away',
-        isInstant: false
-      },
-      {
-        id: 1003,
-        title: 'Soil Preparation',
-        location: 'Riverside Farm',
-        duration: '1 week',
-        pay: '₹100/day',
-        description: 'Prepare soil for next season planting. Tractor operation experience required.',
-        postedBy: 'Mike Wilson',
-        distance: '1.8 km away',
-        isInstant: false
-      }
-    ]
-    // Combine instant jobs and regular jobs, with instant jobs first
-    const combined = [...instantJobsList, ...regularJobs]
-    setAllJobs(combined)
-  }
 
   if (!user) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>
@@ -268,7 +269,7 @@ export default function WorkerDashboard() {
           job.description.toLowerCase().includes(searchQuery.toLowerCase())
         ).length === 0 && (
           <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
-            <div className="text-gray-600 mb-2">No jobs found matching "{searchQuery}"</div>
+            <div className="text-gray-600 mb-2">No jobs found matching &quot;{searchQuery}&quot;</div>
             <button
               onClick={() => setSearchQuery('')}
               className="text-primary-600 hover:text-primary-700 text-sm font-medium"
@@ -302,7 +303,7 @@ export default function WorkerDashboard() {
               <div className="p-6 text-center text-gray-500">
                 <Bell className="h-12 w-12 text-gray-300 mx-auto mb-3" />
                 <p>No instant job alerts at the moment</p>
-                <p className="text-sm mt-1">You'll be notified when urgent jobs are posted nearby</p>
+                <p className="text-sm mt-1">You&apos;ll be notified when urgent jobs are posted nearby</p>
               </div>
             ) : (
               <div className="space-y-1">

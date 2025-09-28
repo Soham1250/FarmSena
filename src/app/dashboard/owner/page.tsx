@@ -278,7 +278,7 @@ export default function OwnerDashboard() {
 
           {postedJobs.length === 0 && (
             <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
-              <div className="text-gray-600 mb-4">You haven't posted any jobs yet</div>
+              <div className="text-gray-600 mb-4">You haven&apos;t posted any jobs yet</div>
               <Link
                 href="/post-job"
                 className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center gap-2 mx-auto focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 inline-flex"
@@ -434,7 +434,7 @@ export default function OwnerDashboard() {
             
             <div className="mb-6">
               <p className="text-gray-700 mb-4">
-                Are you sure you want to cancel the job "{cancellingJob.title}"?
+                Are you sure you want to cancel the job &quot;{cancellingJob.title}&quot;?
               </p>
               <div className="bg-red-50 border border-red-200 rounded-lg p-3">
                 <p className="text-red-700 text-sm">

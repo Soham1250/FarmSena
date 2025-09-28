@@ -21,7 +21,7 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Handle form submission here
-    console.log('Form submitted:', formData)
+    // console.log('Form submitted:', formData)
     // Reset form
     setFormData({ name: '', email: '', company: '', message: '' })
   }
